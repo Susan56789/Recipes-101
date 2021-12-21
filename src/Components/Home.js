@@ -17,7 +17,6 @@ const getRecipes = async () =>{
         .then(data => 
             console.log(data)
         )
-
       return response; 
     }
      catch(e){

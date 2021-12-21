@@ -1,8 +1,13 @@
 import React,{useEffect, useState} from 'react';
 import '../App.css';
+import Recipes from './Recipes';
+
 
 const Home = () => {
  
+const [recipes, setRecipes] = useState([]);
+
+
 const getRecipes = async () =>{
     const exampleReq = 'https://api.edamam.com/api/recipes/v2?type=public&q=pilau&app_id=2c87c283&app_key=55916114da3ad7402afc9731d23772f9';
  
@@ -14,10 +19,13 @@ const getRecipes = async () =>{
         .then(res => 
            res.json()
         )
-        .then(data => 
-            console.log(data)
-        )
-      return response; 
+        .then(data => {
+
+         return data.hits;
+            // console.log(data.hits)
+        })
+
+       setRecipes(response);
     }
      catch(e){
       //  console.log("We have an error")
@@ -39,6 +47,15 @@ useEffect(()=>{
   <input className='search-bar' type='text' />
   <button className='search-button' type='submit'>Search</button>
 </form>  
+
+{recipes.map(recipe =>(
+ <Recipes
+ key={Math.random()*10000}
+ title={recipe.recipe.label}
+ calories={recipe.recipe.calories}
+ image={recipe.recipe.image}
+ />
+))};
         </div>
     )
 }

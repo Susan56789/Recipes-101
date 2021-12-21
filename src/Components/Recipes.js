@@ -5,15 +5,17 @@ import '../App.css';
 
 const Recipes = ({title, calories, image, ingredients}) => {
     return (
-        <div>
-          <h1>{title}</h1> 
-            <ol>
+        <div className='card' style={{"width": "18rem",}}>
+          <div className='card-body'>
+          <h3 className='card-title'>{title}</h3> 
+            <ol className='list-group'>
             {ingredients.map(ingredient =>(
-              <li>{ingredient.text}</li>
+              <li className='list-group-item'>{ingredient.text}</li>
             ))}
             </ol>
-          <p>Calories: {calories}</p> 
-          <img src={image} alt='' />
+            <p className='card-text'>Calories: {calories}</p> 
+          <img className='card-image' src={image} alt='' />
+          </div>
         </div>
     )
 }

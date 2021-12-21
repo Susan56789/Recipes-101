@@ -1,16 +1,36 @@
 import React,{useEffect, useState} from 'react';
-import './App.css';
+import '../App.css';
 
 const Home = () => {
+ 
+const getRecipes = async () =>{
+    const exampleReq = 'https://api.edamam.com/api/recipes/v2?type=public&q=pilau&app_id=2c87c283&app_key=55916114da3ad7402afc9731d23772f9';
+ 
+    try{
+        const response =  await fetch(exampleReq, {
+            method:'GET',
+            mode:'cors',
+        })
+        .then(res => 
+           res.json()
+        )
+        .then(data => 
+            console.log(data)
+        )
+
+      return response; 
+    }
+     catch(e){
+      //  console.log("We have an error")
+        console.log(e)
+    }
+};
 
 
-    const APP_ID = process.env.REACT_APP_API_ID;
-    const APP_KEY = process.env.REACT_APP_API_KEY;
-    const exampleReq = `https://api.edamam.com/api/recipes/v2?type=public&q=pilau&app_id=${APP_ID}&app_key=${APP_KEY}`;
-    
 useEffect(()=>{
-    console.log('Effect has been run');
-})
+    getRecipes();
+},[]); //Runs once when page is renderd
+
 
 
     return (

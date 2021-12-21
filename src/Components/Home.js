@@ -57,12 +57,13 @@ useEffect(()=>{
 
     return (
         <div>
-          <h1>RECIPES 101</h1>
+          <h1 className='header'>BROWSE OUR RECIPES</h1>
 <form onSubmit={getSearch} className="search-form">
   <input className='search-bar' type='text' value={search} onChange={updateSearch} />
   <button className='search-button' type='submit'>Search</button>
 </form>  
 
+<div className='recipes'>
 {recipes.map(recipe =>(
  <Recipes
  key={Math.random()*10000}
@@ -70,10 +71,13 @@ useEffect(()=>{
  calories={recipe.recipe.calories}
  image={recipe.recipe.image}
  ingredients={recipe.recipe.ingredients}
+ 
  />
 ))};
+</div>
         </div>
     )
 }
+
 
 export default Home;

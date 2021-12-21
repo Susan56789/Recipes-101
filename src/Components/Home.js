@@ -6,10 +6,12 @@ import Recipes from './Recipes';
 const Home = () => {
  
 const [recipes, setRecipes] = useState([]);
+const [search, setSearch] = useState('');
+const [query, setQuery]=useState('pilau');
 
 
 const getRecipes = async () =>{
-    const exampleReq = 'https://api.edamam.com/api/recipes/v2?type=public&q=pilau&app_id=2c87c283&app_key=55916114da3ad7402afc9731d23772f9';
+    const exampleReq = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=2c87c283&app_key=55916114da3ad7402afc9731d23772f9`;
  
     try{
         const response =  await fetch(exampleReq, {
@@ -34,17 +36,30 @@ const getRecipes = async () =>{
 };
 
 
+const updateSearch = e =>{
+    setSearch(e.target.value);
+}
+
+
+const getSearch = e =>{
+    e.preventDefault();
+    setQuery(search);
+    setSearch('');
+}
+
+
+
 useEffect(()=>{
     getRecipes();
-},[]); //Runs once when page is renderd
+},[query]); //Runs once when page is renderd
 
 
 
     return (
         <div>
           <h1>RECIPES 101</h1>
-<form className="search-form">
-  <input className='search-bar' type='text' />
+<form onSubmit={getSearch} className="search-form">
+  <input className='search-bar' type='text' value={search} onChange={updateSearch} />
   <button className='search-button' type='submit'>Search</button>
 </form>  
 
